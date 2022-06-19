@@ -6,8 +6,11 @@ import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.Comment;
 import com.example.cloneslack.model.Post;
+import com.example.cloneslack.model.User;
 import com.example.cloneslack.repository.CommentRepository;
 import com.example.cloneslack.repository.PostRepository;
+import com.example.cloneslack.repository.UserRepository;
+import com.example.cloneslack.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +44,7 @@ public class CommentService {
                 );
 
         //comment 엔티티에 같이 넣어주기 위해서 로그인한 회원 찾기
-        User joinUser = userRepository.findByUsername(userDetails.getUsername())
+        User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND)
                 );
 
@@ -52,7 +55,7 @@ public class CommentService {
         }
 
         //requestDto, article 합쳐서 comment 엔티티 만들기
-        Comment comment = new Comment(requestDto, post, joinUser);
+        Comment comment = new Comment(requestDto, post, user);
 
         //댓글 DB에 저장
         return commentRepository.save(comment);
@@ -69,11 +72,11 @@ public class CommentService {
                 );
 
         //작성자 본인이 맞는지 확인하기 위해서
-        User joinUser = userRepository.findByUsername(userDetails.getUsername())
+        User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
                 );
         //본인 댓글인지 확인
-        validateCheckUser(joinUser, comment);
+        validateCheckUser(user, comment);
 
         //코멘트가 비어있을 때 예외 발생
         String commentStr = requestDto.getComment();
@@ -82,7 +85,7 @@ public class CommentService {
         }
 
         //댓글 DB에 수정 반영
-        comment.update(requestDto);
+//        comment.update(requestDto);
 
         return comment;
     }
@@ -111,13 +114,13 @@ public class CommentService {
 
 //     게시글 삭제 시 관련 댓글 모두 삭제
     @Transactional
-    public void deleteComments(Long postId) {
+    public void delete(Long postId) {
         commentRepository.deleteAllByPostId(postId);
     }
 
 
-    private void validateCheckUser(User joinUser, Comment comment) {
-        if (!joinUser.getUserId().equals(comment.getUserId())){
+    private void validateCheckUser(User user, Comment comment) {
+        if (!user.getId().equals(comment.getUserId())){
             throw new CustomException(ErrorCode.INVALID_AUTHORITY);
         }
         //이게 뭔지 좀 알아봐야 될 듯
@@ -130,7 +133,7 @@ public class CommentService {
             User user = userRepository.findById(comments.get(i).getUserId()).orElseThrow(
                     ()-> new NullPointerException("사용자가 존재하지 않습니다")
             );
-            CommentResponseDto commentResponseDto = new CommentResponseDto(comments.get(i), user.getProfileUrl());
+            CommentResponseDto commentResponseDto = new CommentResponseDto(comments.get(i), user.getProfileUrl(), user.getNickname());
             commentResponseDtos.add(commentResponseDto);
         }
         return commentResponseDtos;

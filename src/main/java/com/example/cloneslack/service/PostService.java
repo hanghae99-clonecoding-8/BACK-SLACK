@@ -6,11 +6,13 @@ import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.Post;
 import com.example.cloneslack.repository.PostRepository;
+import com.example.cloneslack.repository.UserRepository;
+import com.example.cloneslack.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import com.example.cloneslack.model.User;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,8 @@ public class PostService {
     private final UserRepository userRepository;
 
     // 게시글 작성
-    public PostResponseDto createArticle(@AuthenticationPrincipal UserDetailsImpl userDetails, PostRequestDto requestDto) {
-        Long userId = userDetails.getUser().getUserId();
+    public PostResponseDto createPost(@AuthenticationPrincipal UserDetailsImpl userDetails, PostRequestDto requestDto) {
+        Long userId = userDetails.getUser().getId();
 //        String title = requestDto.getTitle();
         String contents = requestDto.getContents();
 //        String category = requestDto.getCategory();
@@ -41,42 +43,19 @@ public class PostService {
         return responseDto;
     }
 
-    // 게시글 수정
-    @Transactional
-    public PostResponseDto updateArticle(@AuthenticationPrincipal UserDetailsImpl userDetails, Long postId, PostRequestDto requestDto) {
-        Long loginId = userDetails.getUser().getUserId();
-//        String title = requestDto.getTitle();
-        String contents = requestDto.getContents();
-//        String category = requestDto.getCategory();
-        Post post = postRepository.findByPostId(postId).orElseThrow(
-                () -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
-        );
 
-        if (loginId != post.getUserId()) throw new IllegalArgumentException("로그인 정보가 일치하지 않습니다.");
-
-//        if (title.equals("")) throw new CustomException(ErrorCode.EMPTY_CONTENT);
-        if (contents.equals("")) throw new CustomException(ErrorCode.EMPTY_CONTENT);
-//        if (category.equals("")) throw new CustomException(ErrorCode.EMPTY_CONTENT);
-
-        post.updateArticle(requestDto);
-        postRepository.save(post);
-
-        User user = getUserDetails(post.getUserId());
-        PostResponseDto responseDto = new PostResponseDto(post, user);
-        return responseDto;
-    }
 
     // 게시글 삭제
     @Transactional
-    public void deletePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long articleId) {
-        Long loginId = userDetails.getUser().getUserId();
-        Post post = postRepository.findByArticleId(articleId).orElseThrow(
+    public void deletePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId) {
+        Long loginId = userDetails.getUser().getId();
+        Post post = postRepository.findByPostId(postId).orElseThrow(
                 () -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
         );
 
         if (loginId != post.getUserId()) throw new CustomException(ErrorCode.INVALID_AUTHORITY);
 
-        postRepository.deleteByArticleId(articleId);
+        postRepository.deleteByPostId(postId);
     }
 
     // 게시글 목록 조회
@@ -165,7 +144,7 @@ public class PostService {
 //            responseList.add(responseDto);
 //        }
 //        return responseList;
-    }
+
 
     // responseDto에 넣을 User 정보 불러오기
     private User getUserDetails(Long userId) {

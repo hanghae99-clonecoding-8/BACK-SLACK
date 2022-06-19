@@ -1,6 +1,7 @@
 package com.example.cloneslack.dto.response;
 import com.example.cloneslack.model.Post;
 import lombok.Getter;
+import com.example.cloneslack.model.User;
 
 import java.time.LocalDateTime;
 

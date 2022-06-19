@@ -5,7 +5,8 @@ import com.example.cloneslack.dto.response.CommentResponseDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.Comment;
-import com.example.cloneslack.repository.CommentRepository;
+
+import com.example.cloneslack.security.UserDetailsImpl;
 import com.example.cloneslack.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,6 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    private final CommentRepository commentRepository;
 
     //댓글 조회
     @GetMapping("/api/posts/{postId}/comments")
@@ -30,8 +30,8 @@ public class CommentController {
     }
 
     //댓글 생성
-    @PostMapping("/api/articles/{articleId}/comments")
-    public Comment createComment(@PathVariable Long articleId,
+    @PostMapping("/api/posts/{postId}/comments")
+    public Comment createComment(@PathVariable Long postId,
                                  @RequestBody CommentRequestDto requestDto,
                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
         //로그인된 사용자 확인
@@ -41,11 +41,11 @@ public class CommentController {
 
         //서비스에게 위임
         //받은 값을 반환
-        return commentService.createComment(articleId, requestDto, userDetails);
+        return commentService.createComment(postId, requestDto, userDetails);
     }
 
     //댓글 수정
-    @PutMapping("/api/articles/comments/{commentId}")
+    @PutMapping("/api/posts/comments/{commentId}")
     public Comment updateComment(@PathVariable Long commentId,
                                  @RequestBody CommentRequestDto requestDto,
                                  @AuthenticationPrincipal UserDetailsImpl userDetails){
@@ -60,8 +60,8 @@ public class CommentController {
     }
 
     //댓글 삭제
-    @DeleteMapping("/api/articles/comments/{commentId}")
-    public ResponseEntity delete(@PathVariable Long commentId,
+    @DeleteMapping("/api/posts/comments/{commentId}")
+    public void delete(@PathVariable Long commentId,
                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         //로그인된 사용자 확인 - 다시 확인하기
@@ -70,6 +70,7 @@ public class CommentController {
         }
 
         //서비스에 위임
-        return commentService.delete(commentId, userDetails);
+      commentService.delete(commentId);
+
     }
 }

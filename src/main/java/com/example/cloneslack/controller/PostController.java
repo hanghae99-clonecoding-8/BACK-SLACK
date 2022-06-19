@@ -4,6 +4,8 @@ import com.example.cloneslack.dto.request.PostRequestDto;
 import com.example.cloneslack.dto.response.PostResponseDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
+import com.example.cloneslack.security.UserDetailsImpl;
+import com.example.cloneslack.service.CommentService;
 import com.example.cloneslack.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,21 +24,21 @@ public class PostController {
     @PostMapping("/api/posts")
     public PostResponseDto createPost(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PostRequestDto requestDto) {
         if (userDetails != null) {
-            PsotResponseDto responseDto = postService.createArticle(userDetails, requestDto);
+            PostResponseDto responseDto = postService.createPost(userDetails, requestDto);
             return responseDto;
         }
         throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
     }
 
     // 게시글 수정
-    @PutMapping("/api/posts/{postId}")
-    publicPostResponseDto updateArticle(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId, @RequestBody PostRequestDto requestDto) {
-        if (userDetails != null) {
-            PostResponseDto responseDto = postService.updateArticle(userDetails, postId, requestDto);
-            return responseDto;
-        }
-        throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
-    }
+//    @PutMapping("/api/posts/{postId}")
+//    public PostResponseDto updatePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId, @RequestBody PostRequestDto requestDto) {
+//        if (userDetails != null) {
+//            PostResponseDto responseDto = postService.updatePost(userDetails, postId, requestDto);
+//            return responseDto;
+//        }
+//        throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
+//    }
 
     // 게시글 삭제
 //    @DeleteMapping("/api/posts/{postId}")

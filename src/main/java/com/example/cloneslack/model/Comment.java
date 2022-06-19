@@ -29,11 +29,11 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private String comment;
 
-    public Comment(CommentRequestDto requestDto, Post post, User joinUser) {
+    public Comment(CommentRequestDto requestDto, Post post, User user) {
         this.comment = requestDto.getComment();
         this.postId = post.getPostId();
-        this.userId = joinUser.getUserId();
-        this.username = joinUser.getUsername();
+        this.userId = user.getId();
+        this.username = user.getUsername();
         //오니 저 조인유져 어디서 나오는거지?? 뭐 스프링 시큐리티 기능인가?
     }
 

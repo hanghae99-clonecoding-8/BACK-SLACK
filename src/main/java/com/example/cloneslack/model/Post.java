@@ -13,7 +13,7 @@ public class Post extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long articleId;
+    private Long postId;
 
     @Column(nullable = false)
     private Long userId;
@@ -38,9 +38,9 @@ public class Post extends Timestamped{
 //        this.category = requestDto.getCategory();
     }
 
-    public void updateArticle(PostRequestDto requestDto) {
+    public void updatePost(PostRequestDto requestDto) {
 //        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
+        this.contents = requestDto.getContents();
 //        this.category = requestDto.getCategory();
     }
 

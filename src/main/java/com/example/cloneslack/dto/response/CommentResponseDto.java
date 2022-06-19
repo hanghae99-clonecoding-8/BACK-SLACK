@@ -15,8 +15,8 @@ public class CommentResponseDto {
     private String profileUrl;
     private Long commentId;
 
-    public CommentResponseDto(Comment comment, String profileUrl) {
-        this.nickname = comment.getNickname();
+    public CommentResponseDto(Comment comment, String profileUrl, String nickname) {
+        this.nickname = nickname;
         this.comment = comment.getComment();
         this.createdAt = comment.getCreatedAt();
         this.profileUrl = profileUrl;
