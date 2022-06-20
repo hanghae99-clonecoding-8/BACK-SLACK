@@ -1,9 +1,11 @@
-package com.example.cloneslack.dto.response;
+package com.example.cloneslack.dto.responsedto;
+import com.example.cloneslack.model.Comment;
 import com.example.cloneslack.model.Post;
 import lombok.Getter;
 import com.example.cloneslack.model.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class PostResponseDto {
@@ -15,9 +17,12 @@ public class PostResponseDto {
     private String profileUrl;
 //    private String title;
     private String contents;
+//    private List<Comment> comments;
 //    private Boolean done;
 //    private String category;
 //    private boolean fav;
+
+
 
     public PostResponseDto(Post post, User user) {
         this.createdAt = post.getCreatedAt();

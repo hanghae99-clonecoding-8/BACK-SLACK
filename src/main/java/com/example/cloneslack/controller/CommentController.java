@@ -1,7 +1,7 @@
 package com.example.cloneslack.controller;
 
-import com.example.cloneslack.dto.request.CommentRequestDto;
-import com.example.cloneslack.dto.response.CommentResponseDto;
+import com.example.cloneslack.dto.requestdto.CommentRequestDto;
+import com.example.cloneslack.dto.responsedto.CommentResponseDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.Comment;
@@ -9,7 +9,6 @@ import com.example.cloneslack.model.Comment;
 import com.example.cloneslack.security.UserDetailsImpl;
 import com.example.cloneslack.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,17 +59,17 @@ public class CommentController {
     }
 
     //댓글 삭제
-    @DeleteMapping("/api/posts/comments/{commentId}")
-    public void delete(@PathVariable Long commentId,
-                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
-
-        //로그인된 사용자 확인 - 다시 확인하기
-        if(userDetails == null ) { //userDetails.getName()은 nullExceptionPoint 에러 날 수 있다.!!그래서 userDetails로 하자.
-            throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
-        }
-
-        //서비스에 위임
-      commentService.delete(commentId);
-
-    }
+//    @DeleteMapping("/api/posts/comments/{commentId}")
+//    public void delete(@PathVariable Long commentId,
+//                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//
+//        //로그인된 사용자 확인 - 다시 확인하기
+//        if(userDetails == null ) { //userDetails.getName()은 nullExceptionPoint 에러 날 수 있다.!!그래서 userDetails로 하자.
+//            throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
+//        }
+//
+//        //서비스에 위임
+//      commentService.delete(commentId);
+//
+//    }
 }

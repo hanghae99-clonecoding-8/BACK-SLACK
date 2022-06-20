@@ -1,7 +1,8 @@
 package com.example.cloneslack.service;
 
-import com.example.cloneslack.dto.request.PostRequestDto;
-import com.example.cloneslack.dto.response.PostResponseDto;
+import com.example.cloneslack.dto.requestdto.PostRequestDto;
+import com.example.cloneslack.dto.responsedto.CommentResponseDto;
+import com.example.cloneslack.dto.responsedto.PostResponseDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.Post;
@@ -91,7 +92,7 @@ public class PostService {
 //        return responseList;
 //    }
 
-    // 게시글 상세 조회
+//     게시글 상세 조회
     public PostResponseDto readPost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
@@ -101,6 +102,42 @@ public class PostService {
         PostResponseDto responseDto = new PostResponseDto(post, user);
         return responseDto;
     }
+//    @Transactional
+//    public DetailBoardResponseDto getBoard(Long id, UserDetailsImpl userDetails) {
+//        Board board = boardRepository.findById(id).orElseThrow(
+//                () -> new NotExistException()
+//        );
+//        List<CommentResponseDto> commentResponseDtos = new ArrayList<>();
+//        for (Comment comment : board.getComments()) {
+//            CommentResponseDto commentResponseDto = new CommentResponseDto(
+//                    comment.getId(),
+//                    comment.getUser().getNickname(),
+//                    comment.getComment(),
+//                    comment.getCreatedAt()
+//            );
+//            commentResponseDtos.add(commentResponseDto);
+//        }
+//
+//
+//        boolean checkLove = false;
+//        for(Love love : board.getLoveList()) {
+//            if (userDetails.getUser().getNickname() == love.getUser().getNickname() && board.getId() == love.getBoard().getId())
+//                checkLove = true;
+//        }
+//
+//        return new DetailBoardResponseDto(
+//                board.getId(),
+//                board.getNickname(),
+//                board.getTitle(),
+//                board.getContents(),
+//                board.getUrl(),
+//                board.getYear(),
+//                board.getCreatedAt(),
+//                board.getModifiedAt(),
+//                checkLove,
+//                commentResponseDtos
+//        );
+//    }
 //
 //     게시글 완료 처리
 //    @Transactional
@@ -153,6 +190,30 @@ public class PostService {
         );
         return user;
         //요렇게 불러오고 이거를 여기저기서 가져다가 쓰는건가보다
+    }
+
+    @Transactional
+    public PostResponseDto updatePost(@AuthenticationPrincipal UserDetailsImpl userDetails, Long postId, PostRequestDto requestDto) {
+        Long loginId = userDetails.getUser().getId();
+//        String title = requestDto.getTitle();
+        String contents = requestDto.getContents();
+//        String category = requestDto.getCategory();
+        Post post = postRepository.findByPostId(postId).orElseThrow(
+                () -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
+        );
+
+        if (loginId != post.getUserId()) throw new IllegalArgumentException("로그인 정보가 일치하지 않습니다.");
+
+//        if (title.equals("")) throw new CustomException(ErrorCode.EMPTY_CONTENT);
+        if (contents.equals("")) throw new CustomException(ErrorCode.EMPTY_CONTENT);
+//        if (category.equals("")) throw new CustomException(ErrorCode.EMPTY_CONTENT);
+
+        post.updatePost(requestDto);
+        postRepository.save(post);
+
+        User user = getUserDetails(post.getUserId());
+        PostResponseDto responseDto = new PostResponseDto(post, user);
+        return responseDto;
     }
 
 }

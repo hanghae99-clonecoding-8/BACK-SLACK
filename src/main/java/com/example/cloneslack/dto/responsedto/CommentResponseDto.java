@@ -1,4 +1,4 @@
-package com.example.cloneslack.dto.response;
+package com.example.cloneslack.dto.responsedto;
 
 
 import com.example.cloneslack.model.Comment;

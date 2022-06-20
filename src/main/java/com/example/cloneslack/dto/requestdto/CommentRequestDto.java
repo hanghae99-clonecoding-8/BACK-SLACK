@@ -1,4 +1,4 @@
-package com.example.cloneslack.dto.request;
+package com.example.cloneslack.dto.requestdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

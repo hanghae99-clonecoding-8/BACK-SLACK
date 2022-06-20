@@ -1,7 +1,7 @@
 package com.example.cloneslack.controller;
 
-import com.example.cloneslack.dto.request.PostRequestDto;
-import com.example.cloneslack.dto.response.PostResponseDto;
+import com.example.cloneslack.dto.requestdto.PostRequestDto;
+import com.example.cloneslack.dto.responsedto.PostResponseDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.security.UserDetailsImpl;
@@ -30,26 +30,26 @@ public class PostController {
         throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
     }
 
-    // 게시글 수정
-//    @PutMapping("/api/posts/{postId}")
-//    public PostResponseDto updatePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId, @RequestBody PostRequestDto requestDto) {
-//        if (userDetails != null) {
-//            PostResponseDto responseDto = postService.updatePost(userDetails, postId, requestDto);
-//            return responseDto;
-//        }
-//        throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
-//    }
+//     게시글 수정
+    @PutMapping("/api/posts/{postId}")
+    public PostResponseDto updatePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId, @RequestBody PostRequestDto requestDto) {
+        if (userDetails != null) {
+            PostResponseDto responseDto = postService.updatePost(userDetails, postId, requestDto);
+            return responseDto;
+        }
+        throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
+    }
 
     // 게시글 삭제
-//    @DeleteMapping("/api/posts/{postId}")
-//    public String deletePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId) {
-//        if (userDetails != null) {
-//            postService.deletePost(userDetails, postId);
-//            commentService.deleteComments(postId);
-//            return "게시글이 삭제되었습니다.";
-//        }
-//        throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
-//    }
+    @DeleteMapping("/api/posts/{postId}")
+    public String deletePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId) {
+        if (userDetails != null) {
+            postService.deletePost(userDetails, postId);
+            commentService.deleteComments(postId);
+            return "게시글이 삭제되었습니다.";
+        }
+        throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
+    }
 
     // 게시글 목록 조회
 //    @GetMapping("/api/articles/page/{page}")

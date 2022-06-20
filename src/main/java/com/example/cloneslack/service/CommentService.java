@@ -1,7 +1,7 @@
 package com.example.cloneslack.service;
 
-import com.example.cloneslack.dto.request.CommentRequestDto;
-import com.example.cloneslack.dto.response.CommentResponseDto;
+import com.example.cloneslack.dto.requestdto.CommentRequestDto;
+import com.example.cloneslack.dto.responsedto.CommentResponseDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.Comment;
@@ -114,7 +114,7 @@ public class CommentService {
 
 //     게시글 삭제 시 관련 댓글 모두 삭제
     @Transactional
-    public void delete(Long postId) {
+    public void deleteComments(Long postId) {
         commentRepository.deleteAllByPostId(postId);
     }
 
