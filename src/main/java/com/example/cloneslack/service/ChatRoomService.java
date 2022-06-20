@@ -3,6 +3,7 @@ package com.example.cloneslack.service;
 import com.example.cloneslack.dto.requestdto.ChatRoomRequestDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomListDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomResponseDto;
+import com.example.cloneslack.dto.responsedto.ChatRoomUserResponseDto;
 import com.example.cloneslack.dto.responsedto.InvitationDto;
 import com.example.cloneslack.model.ChatRoom;
 import com.example.cloneslack.model.User;
@@ -84,15 +85,18 @@ public class ChatRoomService {
     @Transactional
     public ResponseEntity<?> inviteUser(InvitationDto invitationDto) {
         Long roomId = invitationDto.getRoomId();
-        String username = invitationDto.getUsername();
-        Optional<User> tmp = userRepository.findByUsername(username);
+        String nickname = invitationDto.getNickname();
+        Optional<User> tmp = userRepository.findByNickname(nickname);
         if(!tmp.isPresent()){
-            return ResponseEntity.badRequest().body(new IllegalArgumentException("유저 정보를 확인해주세요"));
+            return ResponseEntity.badRequest().body("유저 정보를 확인해주세요");
         }
         User user = tmp.get();
         ChatRoom findRoom = chatRoomRepository.findById(roomId).orElseThrow(
                 () -> new IllegalArgumentException("방번호를 확인해주세요")
         );
+        if (findRoom == null){
+            return ResponseEntity.badRequest().body("방 번호를 확인해주세요");
+        }
         findRoom.getUserList().add(user);
         System.out.println(user);
         chatRoomRepository.save(findRoom);

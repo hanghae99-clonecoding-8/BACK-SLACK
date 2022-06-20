@@ -35,11 +35,11 @@ public class ChatMessageController {
     public void message(@RequestBody ChatMessageRequestDto messageRequestDto, @Header("token") String token) {
 
         // 로그인 회원 정보를 들어온 메시지에 값 세팅
-        String username = jwtDecoder.decodeUsername(token);
-        Optional<User> user1 = userRepository.findByUsername(username);
+        String nickname = jwtDecoder.decodeNickname(token);
+        Optional<User> user1 = userRepository.findByNickname(nickname);
         User user = user1.get();
         messageRequestDto.setNickname(user.getNickname());
-        messageRequestDto.setSender(user.getUsername());
+        messageRequestDto.setSender(user.getNickname());
 
         // 메시지 생성 시간 삽입
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");

@@ -28,10 +28,13 @@ public class ChatRoom extends Timestamped {
     @JoinColumn(name = "user_id")
     private List<User> userList = new ArrayList<>();
 
+    private String roomCreator;
+
 
     public ChatRoom(ChatRoomRequestDto requestDto, UserService userService) {
         this.chatRoomName = requestDto.getChatRoomName();
         this.userList.add(userService.findByNickname(requestDto.getNickname()));
+        this.roomCreator = requestDto.getNickname();
     }
 
     public ChatRoom(String name){
