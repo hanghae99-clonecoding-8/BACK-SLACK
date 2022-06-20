@@ -36,6 +36,10 @@ public class User {
         this.password = password;
         this.profileUrl = profileUrl;
     }
+    public User(String nickname, String profileUrl) {
+        this.nickname = nickname;
+        this.profileUrl = profileUrl;
+    }
 
     public User(UserRequestDto userRequestDto) {
         this.username = userRequestDto.getUsername();

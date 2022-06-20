@@ -1,5 +1,8 @@
 package com.example.cloneslack.security;
 
+import com.example.cloneslack.dto.responsedto.LoginResponseDto;
+import com.example.cloneslack.dto.responsedto.UserResponseDto;
+import com.example.cloneslack.model.User;
 import com.example.cloneslack.security.jwt.JwtTokenUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
@@ -33,12 +37,11 @@ public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
 
 
         //UserId 내려주기
-//        response.setContentType("application/json");
-//        User user = userDetails.getUser();
-//        UserDto responseDto = new UserDto(user);
-//
-//        String result = mapper.writeValueAsString(responseDto);
-//        response.getWriter().write(result);
+        response.setContentType("application/json");
+        User user = userDetails.getUser();
+        LoginResponseDto loginResponseDto = new LoginResponseDto(user.getNickname(), user.getProfileUrl(), "Success Login!!!");
+        String result = mapper.writeValueAsString(loginResponseDto);
+        response.getWriter().write(result);
     }
 
 }
