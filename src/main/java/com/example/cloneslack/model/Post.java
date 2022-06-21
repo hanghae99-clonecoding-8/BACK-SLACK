@@ -1,15 +1,12 @@
 package com.example.cloneslack.model;
 
 import com.example.cloneslack.dto.requestdto.PostRequestDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -17,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "post")
-public class Post extends Timestamped{
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

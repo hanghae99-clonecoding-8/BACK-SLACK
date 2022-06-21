@@ -49,4 +49,10 @@ public class User {
         this.profileUrl = userRequestDto.getProfileUrl();
     }
 
+    public User(String username, String nickname, String profileUrl){
+        this.username = username;
+        this.nickname = nickname;
+        this.profileUrl = profileUrl;
+    }
+
 }

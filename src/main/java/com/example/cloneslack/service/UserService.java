@@ -84,4 +84,11 @@ public class UserService {
         }
         return new ResponseEntity("사용가능한 닉네임입니다.", HttpStatus.OK);
     }
+
+    public User findByNickname(String nickname) {
+        User user = userRepository.findByNickname(nickname).orElseThrow(
+                ()-> new IllegalArgumentException("찾는 유저가 없습니다")
+        );
+        return user;
+    }
 }
