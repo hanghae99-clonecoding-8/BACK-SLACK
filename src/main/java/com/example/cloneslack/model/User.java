@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -34,6 +35,10 @@ public class User {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
+        this.profileUrl = profileUrl;
+    }
+    public User(String nickname, String profileUrl) {
+        this.nickname = nickname;
         this.profileUrl = profileUrl;
     }
 
