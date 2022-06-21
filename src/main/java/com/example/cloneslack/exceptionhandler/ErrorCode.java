@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
 
+
     USERNAME_LEGNTH(HttpStatus.CONFLICT, "사용자 명을 4자이상으로 만들어주세요."),
     USERNAME_EMAIL(HttpStatus.CONFLICT, "사용자 명을 이메일 형식으로 만들어주세요."),
     PASSWORD_CONTAINUSERNAME(HttpStatus.BAD_REQUEST, "패스워드에 아이디가 들어갈 수 없습니다."),
@@ -29,6 +30,7 @@ public enum ErrorCode {
     /*유저의 이름을 4자이상으로 만들어주세요 */
     DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "중복된 닉네임이 존재합니다");
 
+
     private final HttpStatus httpStatus;
     private final String errorMessage;
 
@@ -36,4 +38,6 @@ public enum ErrorCode {
         this.httpStatus = httpStatus;
         this.errorMessage = errorMessage;
     }
+
 }
+
