@@ -23,7 +23,7 @@ public class CommentController {
 
     //댓글 조회
     @GetMapping("/api/posts/{postId}/comments")
-    public List<CommentResponseDto> getComments(@PathVariable Long postId) {
+    public List<CommentResponseDto> getComment(@PathVariable Long postId) {
         //댓글 ArticleId로 조회하고 내림차순으로 정렬 //찾을 때 ArticleId가 아닌 Article로 찾아야한다. comment에 ArticleId가 없다...
         return commentService.getComment(postId);
     }
@@ -44,19 +44,19 @@ public class CommentController {
     }
 
     //댓글 수정
-    @PutMapping("/api/posts/comments/{commentId}")
-    public Comment updateComment(@PathVariable Long commentId,
-                                 @RequestBody CommentRequestDto requestDto,
-                                 @AuthenticationPrincipal UserDetailsImpl userDetails){
-        //로그인된 사용자 확인 - 다시 확인하기
-        if(userDetails == null ) { //userDetails.getName()은 nullExceptionPoint 에러 날 수 있다.!!그래서 userDetails로 하자.
-            throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
-        }
-
-        //서비스에 위임
-        return commentService.updateComment(commentId, requestDto, userDetails);
-
-    }
+//    @PutMapping("/api/posts/comments/{commentId}")
+//    public Comment updateComment(@PathVariable Long commentId,
+//                                 @RequestBody CommentRequestDto requestDto,
+//                                 @AuthenticationPrincipal UserDetailsImpl userDetails){
+//        //로그인된 사용자 확인 - 다시 확인하기
+//        if(userDetails == null ) { //userDetails.getName()은 nullExceptionPoint 에러 날 수 있다.!!그래서 userDetails로 하자.
+//            throw new CustomException(ErrorCode.AUTH_TOKEN_NOT_FOUND);
+//        }
+//
+//        //서비스에 위임
+//        return commentService.updateComment(commentId, requestDto, userDetails);
+//
+//    }
 
     //댓글 삭제
 //    @DeleteMapping("/api/posts/comments/{commentId}")

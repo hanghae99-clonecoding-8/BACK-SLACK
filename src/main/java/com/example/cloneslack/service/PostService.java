@@ -75,7 +75,7 @@ public class PostService {
             responseList.add(responseDto);
         }
         return responseList;
-        //이거 뭐쥬? 내글보기인가??
+
     }
 
 

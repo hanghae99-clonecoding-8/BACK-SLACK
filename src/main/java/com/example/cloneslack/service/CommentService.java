@@ -62,33 +62,33 @@ public class CommentService {
     }
 
     //댓글 수정
-    @Transactional
-    public Comment updateComment(Long commentId,
-                                 CommentRequestDto requestDto,
-                                 UserDetails userDetails) {
-        //댓글 조회 및 예외 발생
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND)
-                );
-
-        //작성자 본인이 맞는지 확인하기 위해서
-        User user = userRepository.findByUsername(userDetails.getUsername())
-                .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
-                );
-        //본인 댓글인지 확인
-        validateCheckUser(user, comment);
-
-        //코멘트가 비어있을 때 예외 발생
-        String commentStr = requestDto.getComment();
-        if(commentStr.equals("")){
-            throw new CustomException(ErrorCode.EMPTY_CONTENT);
-        }
-
-        //댓글 DB에 수정 반영
-//        comment.update(requestDto);
-
-        return comment;
-    }
+//    @Transactional
+//    public Comment updateComment(Long commentId,
+//                                 CommentRequestDto requestDto,
+//                                 UserDetails userDetails) {
+//        //댓글 조회 및 예외 발생
+//        Comment comment = commentRepository.findById(commentId)
+//                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND)
+//                );
+//
+//        //작성자 본인이 맞는지 확인하기 위해서
+//        User user = userRepository.findByNickname(userDetails.getUsername())
+//                .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND)
+//                );
+//        //본인 댓글인지 확인
+//        validateCheckUser(user, comment);
+//
+//        //코멘트가 비어있을 때 예외 발생
+//        String commentStr = requestDto.getComment();
+//        if(commentStr.equals("")){
+//            throw new CustomException(ErrorCode.EMPTY_CONTENT);
+//        }
+//
+//        //댓글 DB에 수정 반영
+////        comment.update(requestDto);
+//
+//        return comment;
+//    }
 
 //    댓글 삭제
 //    @Transactional
@@ -119,12 +119,12 @@ public class CommentService {
     }
 
 
-    private void validateCheckUser(User user, Comment comment) {
-        if (!user.getId().equals(comment.getUserId())){
-            throw new CustomException(ErrorCode.INVALID_AUTHORITY);
-        }
-        //이게 뭔지 좀 알아봐야 될 듯
-    }
+//    private void validateCheckUser(User user, Comment comment) {
+//        if (!user.getId().equals(comment.getUserId())){
+//            throw new CustomException(ErrorCode.INVALID_AUTHORITY);
+//        }
+//        //이게 뭔지 좀 알아봐야 될 듯
+//    }
 
     public List<CommentResponseDto> getComment(Long postId) {
         List<CommentResponseDto> commentResponseDtos = new ArrayList<>();
@@ -133,7 +133,7 @@ public class CommentService {
             User user = userRepository.findById(comments.get(i).getUserId()).orElseThrow(
                     ()-> new NullPointerException("사용자가 존재하지 않습니다")
             );
-            CommentResponseDto commentResponseDto = new CommentResponseDto(comments.get(i), user.getProfileUrl(), user.getNickname());
+            CommentResponseDto commentResponseDto = new CommentResponseDto(comments.get(i), user.getProfileUrl(), user.getNickname(), user.getUsername());
             commentResponseDtos.add(commentResponseDto);
         }
         return commentResponseDtos;
