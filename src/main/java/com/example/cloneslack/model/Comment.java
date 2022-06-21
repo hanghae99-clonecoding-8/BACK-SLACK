@@ -27,7 +27,13 @@ public class Comment extends Timestamped {
     private Long userId;
 
     @Column(nullable = false)
+    private String nickname;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
+    private String profileUrl;
 
     @Column(nullable = false)
     private String comment;
@@ -40,8 +46,10 @@ public class Comment extends Timestamped {
     public Comment(CommentRequestDto CommentRequestDto, Post post, User user){
         this.postId = post.getPostId();
         this.userId = user.getId();
+        this.nickname = user.getNickname();
         this.username = user.getUsername();
         this.comment = CommentRequestDto.getComment();
+        this.profileUrl = user.getProfileUrl();
 
     }
 

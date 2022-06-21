@@ -13,6 +13,8 @@ public class PostResponseDto {
     private LocalDateTime createdAt;
     private Long postId;
     private Long userId;
+    private String nickname;
+
     private String username;
     private String profileUrl;
 //    private String title;
@@ -28,6 +30,7 @@ public class PostResponseDto {
         this.createdAt = post.getCreatedAt();
         this.postId = post.getPostId();
         this.userId = post.getUserId();
+        this.nickname = user.getNickname();
         this.username = user.getUsername();
         this.profileUrl = user.getProfileUrl();
 //        this.title = post.getTitle();
