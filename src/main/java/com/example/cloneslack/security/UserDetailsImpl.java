@@ -10,6 +10,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
+
     public UserDetailsImpl(User user) {
         this.user = user;
     }
@@ -18,6 +19,13 @@ public class UserDetailsImpl implements UserDetails {
 
         return user;
     }
+    public String getNickname(){
+        return user.getNickname();
+    }
+    public String getProfileUrl(){
+        return user.getProfileUrl();
+    }
+
 
     @Override
     public String getPassword() {

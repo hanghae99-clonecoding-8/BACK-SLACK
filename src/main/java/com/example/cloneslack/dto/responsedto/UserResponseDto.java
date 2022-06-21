@@ -15,4 +15,6 @@ public class UserResponseDto {
         this.profileUrl = profileUrl;
         this.message = message;
     }
+
+
 }

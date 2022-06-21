@@ -1,6 +1,7 @@
 package com.example.cloneslack.security;
 
 
+import com.example.cloneslack.dto.responsedto.UserResponseDto;
 import com.example.cloneslack.security.filter.FormLoginFilter;
 import com.example.cloneslack.security.filter.JwtAuthFilter;
 import com.example.cloneslack.security.jwt.HeaderTokenExtractor;
@@ -110,7 +111,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         FormLoginFilter formLoginFilter = new FormLoginFilter(authenticationManager());
         formLoginFilter.setFilterProcessesUrl("/api/users/login");
         formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler());
-//        formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandlerinfo());
         formLoginFilter.afterPropertiesSet();
         return formLoginFilter;
     }
@@ -119,10 +119,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public FormLoginSuccessHandler formLoginSuccessHandler() {
         return new FormLoginSuccessHandler();
     }
-//    @Bean
-//    public FormLoginSuccessHandlerinfo formLoginSuccessHandlerinfo() {
-//        return new FormLoginSuccessHandlerinfo();
-//    }
     @Bean
     public FormLoginAuthProvider formLoginAuthProvider() {
         return new FormLoginAuthProvider(encodePassword());
@@ -186,6 +182,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("nickname");
+        configuration.addExposedHeader("profileUrl");
+
 
 //        configuration.addExposedHeader("Userinfo");
         //configuration.addAllowedOriginPattern("*");
