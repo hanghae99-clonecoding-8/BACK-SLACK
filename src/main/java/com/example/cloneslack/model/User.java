@@ -1,6 +1,7 @@
 package com.example.cloneslack.model;
 
 import com.example.cloneslack.dto.requestdto.UserRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
