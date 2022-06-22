@@ -13,7 +13,5 @@ public class ChatMessageRequestDto {
     private String nickname;
     private String sender;
     private String message;
-    private String createdAt;
-
 }
 
