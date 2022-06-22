@@ -89,7 +89,7 @@ public class UserService {
 
     public User findByNickname(String nickname) {
         User user = userRepository.findByNickname(nickname).orElseThrow(
-                ()-> new IllegalArgumentException("찾는 유저가 없습니다")
+                ()-> new CustomException(ErrorCode.USER_NOT_FOUND)
         );
         return user;
     }
