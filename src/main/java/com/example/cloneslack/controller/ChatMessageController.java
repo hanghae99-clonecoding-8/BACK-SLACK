@@ -39,7 +39,7 @@ public class ChatMessageController {
         Optional<User> user1 = userRepository.findByNickname(nickname);
         User user = user1.get();
         messageRequestDto.setNickname(user.getNickname());
-        messageRequestDto.setSender(user.getNickname());
+        messageRequestDto.setSender(user.getUsername());
 
         // 메시지 생성 시간 삽입
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
