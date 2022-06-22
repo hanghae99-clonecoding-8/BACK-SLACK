@@ -177,7 +177,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://3.39.190.102/*");
         configuration.addAllowedOrigin("http://localhost:8080");
-        configuration.addAllowedOrigin("http://52.79.226.242/");
+        configuration.addAllowedOrigin("http://3.38.165.46/");
         configuration.setAllowCredentials(true);
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");

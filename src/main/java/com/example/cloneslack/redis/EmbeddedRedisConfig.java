@@ -11,7 +11,7 @@ import java.io.IOException;
 
 // local 환경에서 여타의 CRUD를 테스트해보기 위해서는 Profile 을 local 로 설정해주어야 한다
 //@Profile("local")
-@Profile("52.79.226.242")
+@Profile("3.38.165.46")
 @Configuration
 public class EmbeddedRedisConfig {
 

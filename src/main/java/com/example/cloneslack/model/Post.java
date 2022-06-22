@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "post")
-public class Post {
+public class Post extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
