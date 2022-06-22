@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
@@ -90,5 +92,14 @@ public class UserService {
                 ()-> new IllegalArgumentException("찾는 유저가 없습니다")
         );
         return user;
+    }
+
+    @Transactional
+    public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            userList.add(user);
+        }
+        return userList;
     }
 }

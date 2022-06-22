@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Comment {
+public class Comment extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

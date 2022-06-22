@@ -9,8 +9,10 @@ public class LoginResponseDto {
     private String profileUrl;
 
     private String letter;
+    private String username;
 
-    public LoginResponseDto(String nickname, String profileUrl, String letter) {
+    public LoginResponseDto(String username, String nickname, String profileUrl, String letter) {
+        this.username = username;
         this.nickname = nickname;
         this.profileUrl = profileUrl;
         this.letter = letter;
