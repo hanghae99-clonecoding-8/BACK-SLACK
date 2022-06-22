@@ -37,7 +37,7 @@ public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
 
 
         //UserId 내려주기
-        response.setContentType("application/json");
+        response.setContentType("application/json; charset=utf-8");
         User user = userDetails.getUser();
         LoginResponseDto loginResponseDto = new LoginResponseDto(user.getUsername(), user.getNickname(), user.getProfileUrl(), "Success Login!!!");
         String result = mapper.writeValueAsString(loginResponseDto);
