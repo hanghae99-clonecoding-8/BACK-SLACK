@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class InvitationDto {
-    private String nickname;
+    private String username;
     private Long roomId;
 }

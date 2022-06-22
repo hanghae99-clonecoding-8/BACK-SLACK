@@ -3,7 +3,6 @@ package com.example.cloneslack.service;
 import com.example.cloneslack.dto.requestdto.ChatRoomRequestDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomListDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomResponseDto;
-import com.example.cloneslack.dto.responsedto.ChatRoomUserResponseDto;
 import com.example.cloneslack.dto.responsedto.InvitationDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
@@ -88,8 +87,8 @@ public class ChatRoomService {
     @Transactional
     public ResponseEntity<?> inviteUser(InvitationDto invitationDto) {
         Long roomId = invitationDto.getRoomId();
-        String nickname = invitationDto.getNickname();
-        Optional<User> tmp = userRepository.findByNickname(nickname);
+        String username = invitationDto.getUsername();
+        Optional<User> tmp = userRepository.findByUsername(username);
         if (!tmp.isPresent()) {
             return ResponseEntity.badRequest().body("유저 정보를 확인해주세요");
         }

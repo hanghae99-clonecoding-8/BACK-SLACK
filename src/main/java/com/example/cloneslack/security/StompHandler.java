@@ -56,7 +56,7 @@ public class StompHandler implements ChannelInterceptor {
             // 구독했다는 것은 처음 입장했다는 것이므로 입장 메시지를 발송한다.
             // 클라이언트 입장 메시지를 채팅방에 발송한다.(redis publish)
             String jwtToken = accessor.getFirstNativeHeader("token");
-            String name = jwtDecoder.decodeNickname(jwtToken);
+            String name = jwtDecoder.decodeUsername(jwtToken);
 //            chatService.sendChatMessage(ChatMessage.builder().type(ChatMessage.MessageType.ENTER).roomId(roomId).sender(name).build());
 
             log.info("SUBSCRIBED {}, {}", name, roomId);
@@ -75,7 +75,7 @@ public class StompHandler implements ChannelInterceptor {
             String token = Optional.ofNullable(accessor.getFirstNativeHeader("token")).orElse("UnknownUser");
 
             if(accessor.getFirstNativeHeader("token") != null) {
-                String name = jwtDecoder.decodeNickname(token);
+                String name = jwtDecoder.decodeUsername(token);
 //                chatService.sendChatMessage(ChatMessage.builder().type(ChatMessage.MessageType.QUIT).roomId(roomId).sender(name).build());
             }
 
