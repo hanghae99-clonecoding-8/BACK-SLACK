@@ -3,6 +3,7 @@ package com.example.cloneslack.service;
 import com.example.cloneslack.dto.requestdto.ChatRoomRequestDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomListDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomResponseDto;
+import com.example.cloneslack.dto.responsedto.ChatRoomUserResponseDto;
 import com.example.cloneslack.dto.responsedto.InvitationDto;
 import com.example.cloneslack.exceptionhandler.CustomException;
 import com.example.cloneslack.exceptionhandler.ErrorCode;
@@ -48,8 +49,8 @@ public class ChatRoomService {
         List<ChatRoomListDto> userChatRoom = new ArrayList<>();
         for (ChatRoom chatRoom : chatRoomRepository.findAllByOrderByCreatedAtDesc()) {
             System.out.println(chatRoom.getUserList());
-            for(int i = 0; i < chatRoom.getUserList().size(); i++){
-                if(chatRoom.getUserList().get(i).getNickname().equals(userDetails.getNickname())) {
+            for (int i = 0; i < chatRoom.getUserList().size(); i++) {
+                if (chatRoom.getUserList().get(i).getNickname().equals(userDetails.getNickname())) {
                     userChatRoom.add(new ChatRoomListDto(chatRoom, chatRoom.getUserList().get(i)));
                 }
             }
@@ -82,20 +83,21 @@ public class ChatRoomService {
     public void removeUserEnterInfo(String sessionId) {
         hashOpsEnterInfo.delete(ENTER_INFO, sessionId);
     }
+
     //채팅방에 유저 초대
     @Transactional
     public ResponseEntity<?> inviteUser(InvitationDto invitationDto) {
         Long roomId = invitationDto.getRoomId();
         String nickname = invitationDto.getNickname();
         Optional<User> tmp = userRepository.findByNickname(nickname);
-        if(!tmp.isPresent()){
+        if (!tmp.isPresent()) {
             return ResponseEntity.badRequest().body("유저 정보를 확인해주세요");
         }
         User user = tmp.get();
         ChatRoom findRoom = chatRoomRepository.findById(roomId).orElseThrow(
                 () -> new CustomException(ErrorCode.ROOM_NOT_FOUND)
         );
-        if (findRoom == null){
+        if (findRoom == null) {
             return ResponseEntity.badRequest().body("방 번호를 확인해주세요");
         }
         findRoom.getUserList().add(user);
@@ -110,13 +112,13 @@ public class ChatRoomService {
     @Transactional
     public ResponseEntity<?> outChatRoom(Long roomId, User user) {
         Optional<ChatRoom> tmp = chatRoomRepository.findById(roomId);
-        if(!tmp.isPresent()){
+        if (!tmp.isPresent()) {
             return ResponseEntity.badRequest().body(new CustomException(ErrorCode.ROOM_NOT_FOUND));
         }
         ChatRoom chatRoom = tmp.get();
 
         for (User usr : chatRoom.getUserList()) {
-            if(usr.getId().equals(user.getId())){
+            if (usr.getId().equals(user.getId())) {
                 chatRoom.getUserList().remove(usr);
                 break;
             }
@@ -124,5 +126,7 @@ public class ChatRoomService {
         chatRoomRepository.save(chatRoom);
         return ResponseEntity.ok().body("채팅방 나가기 성공!");
     }
+
+
 }
 

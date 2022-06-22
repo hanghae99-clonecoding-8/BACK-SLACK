@@ -5,6 +5,7 @@ import com.example.cloneslack.dto.responsedto.ChatRoomListDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomResponseDto;
 import com.example.cloneslack.dto.responsedto.InvitationDto;
 import com.example.cloneslack.model.ChatMessage;
+import com.example.cloneslack.model.User;
 import com.example.cloneslack.security.UserDetailsImpl;
 import com.example.cloneslack.service.ChatMessageService;
 import com.example.cloneslack.service.ChatRoomService;
