@@ -42,14 +42,18 @@ public class ChatMessage extends Timestamped{
     @Column
     private String message;
 
+    @Column
+    private String creatdAt;
+
     @Builder
-    public ChatMessage(MessageType type, String roomId, String nickname, String sender, String message) {
+    public ChatMessage(MessageType type, String roomId, String nickname, String sender, String message, String creatdAt) {
         this.type = type;
         this.roomId = roomId;
         this.user = null;
         this.nickname = nickname;
         this.sender = sender;
         this.message = message;
+        this.creatdAt = creatdAt;
     }
 
     @Builder
@@ -59,7 +63,7 @@ public class ChatMessage extends Timestamped{
         this.user = null;
         this.sender = chatMessageRequestDto.getSender();
         this.message = chatMessageRequestDto.getMessage();
-
+        this.creatdAt = chatMessageRequestDto.getCreatedAt();
     }
 
     @Builder
@@ -70,5 +74,6 @@ public class ChatMessage extends Timestamped{
         this.nickname = chatMessageRequestDto.getNickname();
         this.sender = chatMessageRequestDto.getSender();
         this.message = chatMessageRequestDto.getMessage();
+        this.creatdAt = chatMessageRequestDto.getCreatedAt();
     }
 }
