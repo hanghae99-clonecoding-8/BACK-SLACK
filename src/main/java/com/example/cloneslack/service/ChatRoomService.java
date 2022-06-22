@@ -3,8 +3,9 @@ package com.example.cloneslack.service;
 import com.example.cloneslack.dto.requestdto.ChatRoomRequestDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomListDto;
 import com.example.cloneslack.dto.responsedto.ChatRoomResponseDto;
-import com.example.cloneslack.dto.responsedto.ChatRoomUserResponseDto;
 import com.example.cloneslack.dto.responsedto.InvitationDto;
+import com.example.cloneslack.exceptionhandler.CustomException;
+import com.example.cloneslack.exceptionhandler.ErrorCode;
 import com.example.cloneslack.model.ChatRoom;
 import com.example.cloneslack.model.User;
 import com.example.cloneslack.repository.ChatRoomRepository;
@@ -59,7 +60,7 @@ public class ChatRoomService {
     // 개별 채팅방 조회
     public ChatRoomResponseDto getEachChatRoom(Long id, User user) {
         ChatRoom chatRoom = chatRoomRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("찾는 채팅방이 존재하지 않습니다.")
+                () -> new CustomException(ErrorCode.ROOM_NOT_FOUND)
         );
         return new ChatRoomResponseDto(chatRoom, user);
     }
@@ -92,7 +93,7 @@ public class ChatRoomService {
         }
         User user = tmp.get();
         ChatRoom findRoom = chatRoomRepository.findById(roomId).orElseThrow(
-                () -> new IllegalArgumentException("방번호를 확인해주세요")
+                () -> new CustomException(ErrorCode.ROOM_NOT_FOUND)
         );
         if (findRoom == null){
             return ResponseEntity.badRequest().body("방 번호를 확인해주세요");
@@ -110,7 +111,7 @@ public class ChatRoomService {
     public ResponseEntity<?> outChatRoom(Long roomId, User user) {
         Optional<ChatRoom> tmp = chatRoomRepository.findById(roomId);
         if(!tmp.isPresent()){
-            return ResponseEntity.badRequest().body(new IllegalArgumentException("그런 방은 존재하지 않습니다."));
+            return ResponseEntity.badRequest().body(new CustomException(ErrorCode.ROOM_NOT_FOUND));
         }
         ChatRoom chatRoom = tmp.get();
 
