@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessage extends Timestamped{
+public class ChatMessage{
 
     public enum MessageType {
         ENTER, TALK, QUIT
@@ -43,17 +43,17 @@ public class ChatMessage extends Timestamped{
     private String message;
 
     @Column
-    private String creatdAt;
+    private String createdAt;
 
     @Builder
-    public ChatMessage(MessageType type, String roomId, String nickname, String sender, String message, String creatdAt) {
+    public ChatMessage(MessageType type, String roomId, String nickname, String sender, String message, String createdAt) {
         this.type = type;
         this.roomId = roomId;
         this.user = null;
         this.nickname = nickname;
         this.sender = sender;
         this.message = message;
-        this.creatdAt = creatdAt;
+        this.createdAt = createdAt;
     }
 
     @Builder
@@ -63,7 +63,7 @@ public class ChatMessage extends Timestamped{
         this.user = null;
         this.sender = chatMessageRequestDto.getSender();
         this.message = chatMessageRequestDto.getMessage();
-        this.creatdAt = chatMessageRequestDto.getCreatedAt();
+        this.createdAt = chatMessageRequestDto.getCreatedAt();
     }
 
     @Builder
@@ -74,6 +74,6 @@ public class ChatMessage extends Timestamped{
         this.nickname = chatMessageRequestDto.getNickname();
         this.sender = chatMessageRequestDto.getSender();
         this.message = chatMessageRequestDto.getMessage();
-        this.creatdAt = chatMessageRequestDto.getCreatedAt();
+        this.createdAt = chatMessageRequestDto.getCreatedAt();
     }
 }
