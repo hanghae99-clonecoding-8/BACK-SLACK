@@ -14,7 +14,10 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
+
 public class ChatRoom extends Timestamped {
+
+
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
