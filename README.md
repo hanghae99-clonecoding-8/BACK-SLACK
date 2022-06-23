@@ -87,4 +87,4 @@
 
 ## Trouble Shooting
 
-<a href="https://ysh94.tistory.com/49">트러블슈팅</a>
+<a href="https://ysh94.tistory.com/49">트러블슈팅 한 눈에 보기</a>
