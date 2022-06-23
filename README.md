@@ -12,7 +12,7 @@
 ## 구현한 기능
 ### 회원가입 로그인 (spring security, jwt)
 ### 게시글 및 댓글
-### 메시지 (Redis, Web Socket)
+### 채팅방 (Redis, Web Socket)
 
 
 ![슬랙 클론코딩 api 로그인 회원가입](https://user-images.githubusercontent.com/103565908/175223377-2d256849-65d7-4d05-bf35-b411ab401680.png)
