@@ -24,3 +24,5 @@
 ![슬랙 클론코딩 api 채팅방 1](https://user-images.githubusercontent.com/103565908/175223412-0983bd9f-d831-4133-a988-7bb9fdc9930d.png)
 
 ![슬랙 클론코딩 api 채팅방 2](https://user-images.githubusercontent.com/103565908/175223425-56f77433-5b75-4977-bed1-4840aaa98211.png)
+
+## Trouble Shooting
