@@ -1,6 +1,21 @@
+# 💤Sleep💤
+
+## 개발기간
+
+2022.06.17 - 2022.06.23
 
 
-# Spring 8조 slack 클론코딩
+## 내용
+
+🎉Slack Clone Coding
+🎉잠이 필요한 개발자들의 Slack Clone Coding
+
+
+## 😎 잠이 필요한 사람들
+
+👉 FE : 임운철, 최서현
+
+👉 BE : 곽동관, 양승훈, 문준호
 
 
 # 1. 프로젝트 소개
@@ -71,3 +86,5 @@
 ![슬랙 클론코딩 api 채팅방 2](https://user-images.githubusercontent.com/103565908/175223425-56f77433-5b75-4977-bed1-4840aaa98211.png)
 
 ## Trouble Shooting
+
+<a href="https://ysh94.tistory.com/49">트러블슈팅</a>
